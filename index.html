@@ -10,9 +10,7 @@
             margin: 0;
             height: 100%;
             width: 100%;
-            /*
             background-color: black;
-            */
         }
         iframe{
             display: table-cell;
@@ -30,14 +28,27 @@
     </style>
 </head>
 <body>
+    <button id="boton" onclick="iniciar()">
+        Empezar
+    </button>
     <div>
-        <iframe id="content" src="html/1.html" onload="esperar()"></iframe>
+        <iframe id="content" src="html/1.html"></iframe>
     </div>
+    <audio id="sonido">
+        <source src="sonido.mp3">
+    </audio>
 </body>
 <script>
-    const salto = 1;
+    const salto = 15;
     const frames = 336;
     const delay = 400;
+
+    function iniciar(){
+        var audio = document.getElementById("sonido");
+        audio.play();
+        esperar();
+        document.getElementById("boton").style.display = "none";
+    }
 
     function esperar(){
         setTimeout(cambiarFrame, delay);
@@ -46,10 +57,11 @@
     function cambiarFrame(){
         var contenedor = document.getElementById("content");
         var nombreActual = contenedor.getAttribute("src");
+        contenedor.setAttribute("onload" , 'esperar()');
         var numeroActual = nombreActual.split(".");
         numeroActual = numeroActual[0].split('/');
         if(numeroActual[1] < frames){
-            var nombreSiguiente = 'html/' + String(parseInt(numeroActual[1]) + 1) + '.html';
+            var nombreSiguiente = 'html/' + String(parseInt(numeroActual[1]) + salto) + '.html';
             contenedor.setAttribute("src", nombreSiguiente);
         }
     }
