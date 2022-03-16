@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuphead</title>
+    <style>
+        html,body,div{
+            margin: 0;
+            height: 100%;
+            width: 100%;
+            /*
+            background-color: black;
+            */
+        }
+        iframe{
+            display: table-cell;
+            height: 32rem;
+            width: 54rem;
+            margin: auto;
+            border: 1rem;
+        }
+        div{
+            display: table;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <iframe id="content" src="html/1.html" onload="esperar()"></iframe>
+    </div>
+</body>
+<script>
+    const salto = 1;
+    const frames = 3;
+    const delay = 400;
+
+    function esperar(){
+        setTimeout(cambiarFrame, delay);
+    }
+
+    function cambiarFrame(){
+        var contenedor = document.getElementById("content");
+        var nombreActual = contenedor.getAttribute("src");
+        var numeroActual = nombreActual.split(".");
+        numeroActual = numeroActual[0].split('/');
+        if(numeroActual[1] < frames){
+            var nombreSiguiente = 'html/' + String(parseInt(numeroActual[1]) + 1) + '.html';
+            contenedor.setAttribute("src", nombreSiguiente);
+        }
+    }
+</script>
+</html>
